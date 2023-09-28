@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main %}
+
+<div class="container-fluid text-center  p-1" style="overflow: hidden;">
+      <div class="row align-items-start">
+            <!-- Twitter Image -->
+            <div class="col ">
+                  <img src="{% static 'images/twitter-icon.png' %}" alt="Twitter Icon">
+            </div>
+            <div class="col start-up" style="display: flex; flex-direction: column; align-items: flex-start;">
+                  <h1 style="text-align: start; font-size: 60px; font-weight: 900;"><b>Happening now</b></h1>
+                  <br><br>
+                  <h2 style="text-align: start;"><b>Join Today.</b></h2>
+                  <br>
+                  <div style="display: block;">
+                        <div style="align-items: flex-start; justify-content: flex-start;">
+                              <button class="btn btn-rounded rounded-pill bg-white sign py-2"><a
+                                          href="{% url 'login' %}">&nbsp;&nbsp;<i class="bi bi-google"></i>Sign in with
+                                          Google</a></button>
+                        </div>
+                        <div style="align-items: flex-start; justify-content: flex-start;padding-top: 10px;">
+                              <button class="btn btn-rounded rounded-pill bg-white sign py-2"><a href=""><i
+                                                class="bi bi-apple "></i>Sign up with
+                                          apple</a></button>
+                        </div>
+                        <span style="display: flex;  padding: 10px;">
+                              <hr style="width:50%;">&nbsp;&nbsp;or&nbsp;&nbsp;
+                              <hr style="width:50%;">
+
+                        </span>
+                        <div style="align-items: flex-start; justify-content: flex-start;padding: 10px;">
+
+                              <a href="{% url 'register' %}" class="text-white btn btn-rounded rounded-pill bg-blue sign py-2">Create
+                                    account</a>
+                                    
+                                    
+
+                        </div>
+                  </div>
+            </div>
+
+
+
+      </div>
+
+</div>
+</div>
+
+
+{% endblock %}
