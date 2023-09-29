@@ -159,7 +159,7 @@
                         <div>
                             <p class="py-0 navbar-brand mb-0 fs-5 fw-bold d-flex align-items-center">{{ user.first_name }}<span class="material-symbols-outlined " style="font-size: 19px; color: black;font-weight: 800;">
                              lock </span></p>
-                            <p class="text-muted fs-6">0 posts</p>
+                            
                         </div>
                     </div>
                     <!-- <ul style="list-style-type: none; display: flex;align-items: center; justify-content: space-between;"
@@ -225,10 +225,10 @@
                                     <div class="pro-img ">
                                         <img src="{{user.profile.image.url}}" alt="user">
                                     </div>
-                                    {% if request.user == post.user %}
-                                    <a href="{% url 'edit' post.user %}" class="btn btn-outline-light border border-secondary-subtle rounded-pill text-dark fw-bold" style="font-family: 'Noto Sans JP', sans-serif; font-size: 15px;">Set up profile
+                                    
+                                    <a href="{% url 'edit'  %}" class="btn btn-outline-light border border-secondary-subtle rounded-pill text-dark fw-bold" style="font-family: 'Noto Sans JP', sans-serif; font-size: 15px;">Set up profile
                                     </a>
-                                    {% endif %}
+                                    
                                     
                                 </div>
                                 <div>
