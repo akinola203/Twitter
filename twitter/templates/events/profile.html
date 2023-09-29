@@ -6,83 +6,489 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link rel="stylesheet" href="{% static 'css/profile.css' %}">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <title>User Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
-    <header>
-        <!-- Twitter-like header goes here -->
-        <a href="{% url 'logout' %}"
-            style=" background-color: #1da1f2; color: #fff; border: none; border-radius: 4px; padding: 10px 20px; cursor: pointer; transition: background-color 0.2s; ">Logout</a>
-        <a href="{% url 'home' %}"
-            style=" background-color: #1da1f2; color: #fff; border: none; border-radius: 4px; padding: 10px 20px; cursor: pointer; transition: background-color 0.2s; ">home</a>
 
-    </header>
-    <main>
 
-        <div class="profile-container">
-            <div class="profile-header">
-                <div class="profile-image">
-                    <img src="{{ user.profile.image.url }}" alt="User's Profile Image">
-                </div>
-                <div class="profile-info">
-                    <h1>{{ user.first_name}}</h1>
-                    <p>@{{ user}}</p>
-                    <p>{{ user.profile.bio }}</p>
-                    <div class="followers">
-                        <span>{{ user.profile.followers.count }} followers</span>
-                        <span>{{ user.profile.following.count }} following</span>
-                    </div>
-                    {% if request.user == post.user %}
-                    <div class="following">
-                        
-                        <span><a href="{% url 'edit' %}">Edit profile</a></span>
-                        
-                    </div>
-                    {% endif %}
-                    <div class="following">
-                        <span>
-                            {% if request.user.is_authenticated %}
-                                {% if user.username != request.user.username %}
-                                    {% if user not in request.user.profile.following %}
-                                    <a href="{% url 'follow' user %}" class="btn px-2 rounded-pill bg-info">Follow</a>
-                                    {% else %}
-                                    <a href="{% url 'unfollow' user %}" class="btn px-2 rounded-pill bg-info">UnFollow</a>
-                                    {% endif %}
-                                {% endif%}
-                            {% endif %}
-                         
-                        </span>
-                    </div>
-                </div>
+    <div class="container-fluid">
+        <div class="row ">
+            <!-- SIDEBAR STARTS -->
+            <div class="col-lg-3 col-sm-12 col-12 border-end px-5 py-2 bar" style="overflow-y: scroll;min-width: fit-content;position: sticky;z-index: 100;">
                 
-            </div>
-            <div class="profile-tweets">
-                <!-- Display user's tweets here -->
-                <!-- You can use a loop to display tweets dynamically -->
-                {% for post in posts %}
-                <div class="tweet">
-                    <div class="tweet-avatar">
-                        <a href="{% url 'home' %}"><img src="{{ post.user.profile.image.url }}"
-                                alt="Tweet User's Profile Image"></a>
-                    </div>
-                    <div class="tweet-content">
-                        <span class="tweet-username">{{ post.user.first_name }}</span>
-                        <span class="tweet-username">@{{ post.user }}</span>
-                        <span class="tweet-username">{{ post.timestamp|naturaltime }}</span>
+                    <label for="menu-toggle" class="menu-icon d-lg-none mx-auto text-primary "  data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive"><i class="fa fa-bars"></i></label>
 
-                        <p>{{ post.content }}</p>
+                <div class="offcanvas-lg offcanvas-start" tabindex="-2" data-bs-scroll="true" data-bs-backdrop="false"
+                    id="offcanvasResponsive" aria-labelledby="offcanvasResponsiveLabel">
+                    <div class="offcanvas-header">
+
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                            data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <div class="sidebar position-fixed">
+                    <a href="" style="text-decoration: none; color: black;">        
+                    <i class="fab fa-twitter mb-1 logo "></i>
+                    </a>
+
+                    <a href="" style="text-decoration: none; color: black;">
+                    <div class="sidebarOption active">
+                        <span><i class='bx bxs-home-circle'></i></span>
+                        <h2><a href="{% url 'home' %}" style="text-decoration: none;color: black;">Home</a></h2>
+                    </div>
+                    </a>
+
+                    <a href="" style="text-decoration: none; color: black;">
+                    <div class="sidebarOption">
+                        <i class='bx bx-search'></i>
+                        <h2>Explore</h2>
+                    </div>
+                    </a>
+
+                    <a href="" style="text-decoration: none; color: black;">
+                    <div class="sidebarOption">
+                        <i class='bx bx-bell'></i>
+                        <h2>Notifications</h2>
+                    </div>
+                    </a>
+
+                    <a href="" style="text-decoration: none; color: black;">
+                    <div class="sidebarOption">
+                        <span class="material-symbols-outlined">
+                            mail
+                        </span>
+                        <h2>Messages</h2>
+                    </div>
+                    </a>
+
+                    <a href="" style="text-decoration: none; color: black;">
+                    <div class="sidebarOption">
+                        <i class='bx bx-detail'></i>
+                        <h2>Lists</h2>
+                    </div>
+                    </a>
+
+                    <a href="" style="text-decoration: none; color: black;">
+                    <div class="sidebarOption min-vw-75">
+                        <i class="bi bi-people icon"></i>
+                        <h2>Communities</h2>
+                    </div>
+                    </a>
+
+                    <a href="" style="text-decoration: none; color: black;">
+                    <div class="sidebarOption ">
+                        <i class="fab fa-twitter"></i>
+                        <h2>Verified</h2>
+                    </div>
+                    </a>
+
+                    <a href="{%  url 'profile' request.user %}" style="text-decoration: none; color: black;">
+                    <div class="sidebarOption">
+                        <i class="bi bi-person icon"></i>
+                        <h2>Profile</h2>
+                    </div>
+                    </a>
+
+                    <a href="" style="text-decoration: none; color: black;">
+                    <div class="sidebarOption w-sm-100">
+                        <i class='bx bx-dots-horizontal-rounded'></i>
+                        <h2>More</h2>
+                    </div>
+                    </a>
+                    <a href="{% url 'logout' %}" style="text-decoration: none; color: black;">
+                        <div class="sidebarOption w-sm-100">
+                            
+                            <h2>Logout</h2>
+                        </div>
+                    </a>
+
+                    <button class="sidebar__tweet mw-100" type="button">
+                        <a href="">Post</a>
+                    </button>
+
+                    <!-- <a href="" style="text-decoration: none; color: black;" data-toggle="popover" title="Popover Header" data-content="Some content inside the popover"> -->
+                    <div class="mt-1 d-none d-sm-block d-md-block d-lg-block  d-flex align-items-center profile" style="font-family: 'Noto Sans JP', sans-serif;" data-bs-toggle="popover" title="login" data-bs-content="Some content inside the popover" data-bs-trigger="focus"  data-bs-container="body" >
+                        
+                        <div style="width: 250px;max-width: 100%; align-items: center;" class="d-flex align-items-center">
+                            <img src="{{ user.profile.image.url }}" style="width: 25%;" alt="">
+                            <span class="lh-1">
+                            <span class="fw-bold" style="font-size: 16px;">{{ user.first_name }}<span class="material-symbols-outlined " style="font-size: 15px; color: black;font-weight: 800;">
+                                lock </span>
+                            </span>
+                            <span style="font-size: 14px;">@{{user}}</span>
+                            </span>
+                        </div>
+                    </div>
+                    <!-- </a> -->
+
+                </div>
                     </div>
                 </div>
-                {% endfor %}
-                <!-- Repeat the above structure for multiple tweets -->
-            </div>
-            
 
+            </div>
+            <!-- SIDEBAR ENDS -->
+
+          
+
+            <!-- FEEDS START -->
+
+            <div class="col-lg-6 col-sm-12 col-12 py-1">
+                <!-- NAV -->
+                <nav class="sticky-top navb mb-0 border-bottom border-end" style="z-index: 1;">
+                    <!-- <div class="container-fluid border-bottom border-end"> -->
+                    <div class="d-flex align-items-center gap-3" style="font-family: 'Noto Sans JP', sans-serif;">
+                        <a href="" class="back p-1" style="text-decoration: none; color: black; font-weight: 600;">
+                            <span class="material-symbols-outlined">arrow_back</span>
+                        </a>
+                        <div>
+                            <p class="py-0 navbar-brand mb-0 fs-5 fw-bold d-flex align-items-center">{{ user.first_name }}<span class="material-symbols-outlined " style="font-size: 19px; color: black;font-weight: 800;">
+                             lock </span></p>
+                            <p class="text-muted fs-6">0 posts</p>
+                        </div>
+                    </div>
+                    <!-- <ul style="list-style-type: none; display: flex;align-items: center; justify-content: space-between;"
+                        class="">
+                        <li class="py-3 w-100 text-center tee">
+                            <a href="">For you</a>
+                        </li>
+                        <li class="py-3 w-100 text-center tee">
+                            <a href="">Following</a>
+                        </li>
+                    </ul> -->
+                    <!-- </div> -->
+                </nav>
+                <!-- ########## -->
+
+                <!-- TWEET BOX -->
+                <!-- <div class="container border border-top-0 border-start-0">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="tweet__box pb-2">
+                                <form action="">
+                                    <div class="tweetbox__input">
+                                        <img src="static/img/profilevector.jpg" alt="Profile">
+                                        <input class="border-0" type="text" placeholder="What is happening?!">
+                                        <div
+                                            class="d-flex align-items-center justify-content-between pt-3 ps-5 tweet gap-2">
+                                            <div class="ps-4">
+                                                <span class="material-symbols-outlined">
+                                                    imagesmode
+                                                </span>
+                                                <span class="material-symbols-outlined">
+                                                    gif_box
+                                                </span>
+                                                <span class="material-symbols-outlined">
+                                                    page_info
+                                                </span>
+                                                <span class="material-symbols-outlined">
+                                                    sentiment_satisfied
+                                                </span>
+                                                <span class="material-symbols-outlined">
+                                                    early_on
+                                                </span>
+                                                <span class="material-symbols-outlined">
+                                                    location_on
+                                                </span>
+                                            </div>
+                                            <button
+                                                class="tweet_boxbutton  btn btn-primary opacity-50 rounded-pill px-3 fw-bold">Post</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="container">
+                    <div class="row border-end">
+                        <div class="col-md-8 w-100">
+                        <!-- Column -->
+                            <div class="card border-0 w-100"> <img class="card-img-top" src="{{user.profile.image.url}}" alt="Card image cap">
+                                <div class="card-body little-profile text-center d-flex align-items-start justify-content-between">
+                                    <div class="pro-img ">
+                                        <img src="{{user.profile.image.url}}" alt="user">
+                                    </div>
+                                    {% if request.user == post.user %}
+                                    <a href="{% url 'edit' post.user %}" class="btn btn-outline-light border border-secondary-subtle rounded-pill text-dark fw-bold" style="font-family: 'Noto Sans JP', sans-serif; font-size: 15px;">Set up profile
+                                    </a>
+                                    {% endif %}
+                                    
+                                </div>
+                                <div>
+                                    <h3 class="fs-4 ms-3" style="font-family: 'Noto Sans JP', sans-serif; font-size: 15px;">{{user.first_name}}<span class="material-symbols-outlined " style="font-size: 19px; color: black;font-weight: 800;">lock </span></h3>
+                                    <p class="text-muted ms-3" style="font-family: 'Noto Sans JP', sans-serif; font-size: 15px;">@{{ user }}</p>
+                                    <p class="text-muted ms-3 d-flex align-items-center" style="font-family: 'Noto Sans JP', sans-serif; font-size: 15px;"> <span class="material-symbols-outlined"  style=" font-size: 17px; ">calendar_month</span>Joined August 2023</p>
+                                    <span class="ms-3" style="font-family: 'Noto Sans JP', sans-serif; font-size: 15px; "><a href="" class="follink" style="color: black; font-weight: 600;">{{ user.profile.followers.count }} followers</a></span>
+                                    <span class="ms-3" style="font-family: 'Noto Sans JP', sans-serif; font-size: 15px; "><a href="" class="follink" style="color: black; font-weight: 600;">{{ user.profile.following.count }} following</a></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+
+                <nav class=" navb pt-2 mb-0 border-bottom border-end" style="z-index: 1;">
+                    <!-- <div class="container-fluid border-bottom border-end"> -->
+                    <!-- <ul style="list-style-type: none; display: flex;align-items: center; justify-content: space-between;"
+                        class="">
+                        <li class="py-3 w-100 text-center tee align-items-center">
+                            <a href="">Post</a>
+                        </li>
+                        <li class="py-3 w-100 text-center tee align-items-center">
+                            <a href="">Reply</a>
+                        </li>
+                        <li class="py-3 w-100 text-center tee align-items-center">
+                            <a href="">Highlights</a>
+                        </li>
+                        <li class="py-3 w-100 text-center tee align-items-center">
+                            <a href="">Media</a>
+                        </li>
+                        <li class="py-3 w-100 text-center tee align-items-center">
+                            <a href="">Likes</a>
+                        </li>
+                    </ul> -->
+                    <!-- </div> -->
+
+                    <ul class="nav nav-pills  my-3 justify-content-center gap-3" id="pills-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                          <button class="menu-nav-link active py-lg-2 pb-lg-3 px-lg-4 px-md-3 py-md-3 px-1 py-1 font-fam" id="pills-posts-tab" data-bs-toggle="pill" data-bs-target="#pills-posts" type="button" role="tab" aria-controls="pills-posts" aria-selected="true">Posts</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                          <button class="menu-nav-link py-lg-2 pb-lg-3 px-lg-4 px-md-3 py-md-3 px-1 py-1 font-fam" id="pills-replies-tab" data-bs-toggle="pill" data-bs-target="#pills-replies" type="button" role="tab" aria-controls="pills-replies" aria-selected="false">Replies</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                          <button class="menu-nav-link py-lg-2 pb-lg-3 px-lg-4 px-md-3 py-md-3 px-1 py-1 font-fam" id="pills-highlights-tab" data-bs-toggle="pill" data-bs-target="#pills-highlights" type="button" role="tab" aria-controls="pills-highlights" aria-selected="false">Highlights</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                          <button class="menu-nav-link py-lg-2 pb-lg-3 px-lg-4 px-md-3 py-md-3 px-1 py-1 font-fam" id="pills-media-tab" data-bs-toggle="pill" data-bs-target="#pills-media" type="button" role="tab" aria-controls="pills-media" aria-selected="false">Media</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                          <button class="menu-nav-link py-lg-2 pb-lg-3 px-lg-4 px-md-3 py-md-3 px-1 py-1 font-fam" id="pills-likes-ta2 pb-lg-3" data-bs-toggle="pill"  px-1 py-1data-bs-target="#pills-likes" type="button" role="tab" aria-controls="pills-likes" aria-selected="false">Likes</button>
+                        </li>
+                      </ul>
+                
+                    
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-posts" role="tabpanel" aria-labelledby="pills-posts-tab" tabindex="0">
+                            
+                            
+
+                        </div>
+                        <div class="tab-pane fade show active" id="pills-replies" role="tabpanel" aria-labelledby="pills-replies-tab" tabindex="0"></div>
+                        <div class="tab-pane fade show active" id="pills-highlights" role="tabpanel" aria-labelledby="pills-highlights-tab" tabindex="0"></div>
+                        <div class="tab-pane fade show active" id="pills-media" role="tabpanel" aria-labelledby="pills-media-tab" tabindex="0"></div>
+                        <div class="tab-pane fade show active" id="pills-likes" role="tabpanel" aria-labelledby="pills-likes-tab" tabindex="0"></div>
+                    </div>
+                </nav>
+                <!-- ####### -->
+
+                <!-- WHO TO FOLLOW STARTS -->
+                <div class="container border-end border-bottom">
+                    <div class="row">
+                        {% for post in posts %}
+                        <div class="col-sm-12 col-12 mt-3">
+                            
+                            <div class="post">
+                                <div class="post_avatar">
+                                    <img src="{{ post.user.profile.image.url }}"  alt="">
+                                </div>
+
+                                <div class="post_body">
+                                    <div class="post_header">
+                                        <div class="post_headertext">
+                                            <h3>{{ post.user.first_name }}
+                                                <span class="post_headerspecial">
+                                                    <i class="bi bi-patch-check-fill post__badge"></i>
+                                                </span>
+                                                <span>{{ post.timestamp|naturaltime}}</span>
+                                            </h3>
+                                        </div>
+                                        <div class="post_headerdescription">
+                                            <p class="lh-base">{{ post.content }}  <br> consectetur adipisicing </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    {% if request.user.is_authenticated %}
+                                      {% if user.username != request.user.username %}
+                                        {% if user not in request.user.profile.following %}
+                                        <a href="{% url 'follow' user %}" class="btn btn-dark border border-secondary-subtle rounded-pill text-white fw-bold px-4" style="font-family: 'Noto Sans JP', sans-serif; font-size: 15px;">Follow</a>
+                                        {% else %}
+                                        <a href="{% url 'unfollow' user %}" class="btn btn-dark border border-secondary-subtle rounded-pill text-white fw-bold px-4" style="font-family: 'Noto Sans JP', sans-serif; font-size: 15px;">UnFollow</a>
+                                        {% endif %}
+                                      {% endif %}
+                                    {% endif %}
+                                
+                                </div>
+                            </div>
+                            
+                        </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+                <!-- WHO TO FOLLOW ENDS -->
+
+                <nav class="sticky-bottom navd mb-0 pt-2 pb-1 d-lg-none" style="z-index: 1;"        >
+                    
+                      <ul style="list-style-type: none; display: flex;align-items: center; justify-content: space-between;" class="downb">
+                        <li class="list"><a href="">
+                            <div class="footnav">
+                            <span><i class='bx bxs-home-circle ic'></i></span>
+                            </div>
+                        </a></li>
+                        <li class="list"><a href="">
+                            <div class="footnav">
+                                <i class='bx bx-search ic'></i>
+                            </div>
+                        </a></li>
+                        <li class="list"><a href="">
+                            <div class="footnav">
+                                <i class="bi bi-people ic"></i>
+                            </div>
+                        </a></li>
+                        <li class="list"><a href="">
+                            <div class="footnav">
+                                <i class='bx bx-bell ic'></i>
+                            </div>
+                        </a></li>
+                        <li class="list"><a href="">
+                            <div class="footnav">
+                                <span class="material-symbols-outlined ic">
+                                    mail
+                                </span>
+                            </div>
+                        </a></li>
+                      </ul>
+                </nav>
+            </div>
+            <!-- FEEDS ENDS -->
+
+            <!-- WIDGETS STARTS -->
+            <div class="col-lg-3 col-sm-12 col-12 ">
+                <div class="widgets d-none d-sm-block d-md-none d-lg-block">
+                    <div class="widgets__input">
+                        <span class="material-symbols-outlined">search</span>
+                        <input type="text" placeholder="Search">
+                    </div>
+
+                    <div class="widgets__widgetsContainer">
+                        <h2>Trends for you</h2>
+                        <blockquote class="twitter-tweet">
+                            <p lang="en" dir="ltr">
+                                Sunsets don&#39;t get much better than this one over
+                                <a href="https://twitter.com/GrandTetonNPS?ref_src=twsrc%5Etfw">@GrandTetonNPS</a>.
+                                <a
+                                    href="https://twitter.com/hashtag/nature?src=hash&amp;ref_src=twsrc%5Etfw">#nature</a>
+                                <a
+                                    href="https://twitter.com/hashtag/sunset?src=hash&amp;ref_src=twsrc%5Etfw">#sunset</a>
+                                <a href="http://t.co/YuKy2rcjyU">pic.twitter.com/YuKy2rcjyU</a>
+                            </p>
+                            &mdash; US Department of the Interior (@Interior)
+                            <a href="https://twitter.com/Interior/status/463440424141459456?ref_src=twsrc%5Etfw">May 5,
+                                2014</a>
+                        </blockquote>
+                        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                    </div>
+
+                    <!-- <div class="follow" >
+                        <div class="follow_image">
+                            <img src="pv.jpg" alt="">
+                            <h2>Taiwo Oluwabusayomi</h2>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            <!-- WIDGETS ENDS  -->
         </div>
-    </main>
+    </div>
+
+    <script>
+        
+    </script>
+
+
+    <!-- POPOVER INIT -->
+    <script>
+        var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+        var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+          return new bootstrap.Popover(popoverTriggerEl)
+        })
+    </script>
+
+
+    <!-- TOOLTIP INIT -->
+    <!-- <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+          return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script> -->
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+
+    <!-- SCROLL ON SMALL SCREEN -->
+        <script>
+            // script.js
+        const navbar = document.querySelector('.navd');
+        let lastScrollPosition = window.pageYOffset;
+
+        window.addEventListener('scroll', () => {
+            const currentScrollPosition = window.pageYOffset;
+
+            if (currentScrollPosition < lastScrollPosition) {
+                // Scrolling up, show the navbar
+                navbar.style.bottom = '0';
+            } else {
+                // Scrolling down, hide the navbar
+                navbar.style.bottom = '-60px'; // Adjust this value to match the initial bottom value
+            }
+
+            lastScrollPosition = currentScrollPosition;
+        });
+
+        </script>
+
+        <script>
+            import { createPopper } from '@popperjs/core';
+            const popcorn = document.querySelector('#popcorn');
+            const tooltip = document.querySelector('#tooltip');
+            createPopper(popcorn, tooltip, {
+              placement: 'top',
+            });
+        </script>
+        
+
+        <script>
+            $(document).ready(function(){
+  $('.danger').popover({ 
+    html : true,
+    content: function() {
+      return $('#popover_content_wrapper').html();
+    }
+  });
+});
+        </script>
+        
 </body>
 
 </html>
