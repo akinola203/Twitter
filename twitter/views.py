@@ -1,8 +1,8 @@
 
 from django.shortcuts import  redirect , render,  get_object_or_404
 from django.contrib.auth.models import User
-from .models import Profile , Post , Relationship
-from .forms import UserRegisterForm, PostForm , ProfileUpdateForm , UserUpdateForm
+from .models import Profile , Post , Relationship 
+from .forms import UserRegisterForm, PostForm , ProfileUpdateForm , UserUpdateForm 
 from django.contrib.auth.decorators import login_required
 from django.dispatch import receiver
 from django.db.models.signals import post_save, pre_delete
@@ -130,5 +130,11 @@ def search(request):
         return render(request,'events/search.html',{'searched':'searched','user':user})
     else:
         return render(request,'events/search.html')
+    
+
+
+
+
+
 
 
