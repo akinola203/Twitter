@@ -123,7 +123,7 @@ def unfollow(request, username):
     return redirect('home')
 
 
-def search(request):
+def search(request , username):
     if request.method == 'POST':
         searched = request.POST['searched']
         user = User.objects.filter(username=searched)

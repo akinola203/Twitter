@@ -35,7 +35,7 @@
                         <span>{{ user.profile.followers.count }} followers</span>
                         <span>{{ user.profile.following.count }} following</span>
                     </div>
-                    {% if user.username == user.username %}
+                    {% if request.user == post.user %}
                     <div class="following">
                         
                         <span><a href="{% url 'edit' %}">Edit profile</a></span>
@@ -79,26 +79,7 @@
                 {% endfor %}
                 <!-- Repeat the above structure for multiple tweets -->
             </div>
-            <div class="who-to-follow">
-                <h2>Who to Follow</h2>
-                <div class="user">
-                    <img src="user1.jpg" alt="User 1">
-                    <div class="user-info">
-                        <h3>User 1</h3>
-                        <p>@user1</p>
-                    </div>
-                    <button>Follow</button>
-                </div>
-                <div class="user">
-                    <img src="user2.jpg" alt="User 2">
-                    <div class="user-info">
-                        <h3>User 2</h3>
-                        <p>@user2</p>
-                    </div>
-                    <button>Follow</button>
-                </div>
-                <!-- Repeat the user div structure for more users -->
-            </div>
+            
 
         </div>
     </main>
