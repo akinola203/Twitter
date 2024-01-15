@@ -94,9 +94,8 @@
                                 <i class='bx bx-dots-horizontal-rounded'></i>
                                 <h2>More</h2>
                             </div>
-                            <button class="sidebar__tweet">
-                                <a href="">Post</a>
-                            </button>
+                            <button
+                                                class="tweet_boxbutton  btn btn-primary opacity-50 rounded-pill px-3 fw-bold">Post</button>
 
                             <div class="mt-3 d-flex align-items-center">
                                 <div class="sidebarOption sign">
@@ -203,14 +202,14 @@
                                 <form action="" method="POST">
                                     {% csrf_token %}
                                     <div class="tweetbox__input">
-                                        <img src="{{user.profile.image.url}}" alt="Profile">
+                                        <img src="{{user.profile.image1.url}}" alt="Profile">
                                         {{form.content}}
-                                        {{form.image.url}}
+                                        
                                         <div
                                             class="d-flex align-items-center justify-content-between pt-3 ps-5 tweet gap-2">
                                             <div class="ps-4">
                                                 <span class="material-symbols-outlined">
-                                                    imagesmode
+                                                    
                                                 </span>
                                                 <span class="material-symbols-outlined">
                                                     gif_box
@@ -248,13 +247,13 @@
 
                             <div class="post">
                                 <div class="post_avatar">
-                                    <img src="{{ post.user.profile.image.url }}" alt="">
+                                    <img src="{{ post.user.profile.image1.url }}" alt="">
                                 </div>
 
                                 <div class="post_body">
                                     <div class="post_header">
                                         <div class="post_headertext">
-                                            <h3><a href="{% url 'profile' post.user %}">{{ post.user.first_name }}</a>
+                                            <h3><a href="{% url 'profile' post.user %}" style="text-decoration: none;">{{ post.user.first_name }}</a>
                                                 <span class="post_headerspecial">
                                                     <i class="bi bi-patch-check-fill post__badge"></i>@{{post.user}}
 
@@ -295,45 +294,7 @@
                         </div>
                         {% endfor %}
 
-                        <div class="col-sm-12 col-12 mt-3 pe-sm-5">
-                            <div class="post">
-                                <div class="post_avatar">
-                                    <img src="static/img/pv.jpg" alt="">
-                                </div>
-
-                                <div class="post_body">
-                                    <div class="post_header">
-                                        <div class="post_headertext">
-                                            <h3>Taiwo Oluwabusayomi
-                                                <span class="post_headerspecial">
-                                                    <i class="bi bi-patch-check-fill post__badge"></i>@Oluwabusayomi
-
-                                                </span>
-                                                </span>
-                                            </h3>
-                                        </div>
-                                        <div class="post_headerdescription">
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
-                                        </div>
-                                    </div>
-
-
-                                    <img src="static/img/hamburger.jpg" class="border img-fluid " alt="">
-
-                                    <div class="post__footer">
-                                        <span class="material-symbols-outlined">quick_phrases</span>
-                                        <span class="material-symbols-outlined">repeat</span>
-                                        <span class="material-symbols-outlined fav">favorite</span>
-                                        <span class="material-symbols-outlined">bar_chart_4_bars</span>
-                                        <span class="material-symbols-outlined">download</span>
-                                        <!-- <span class="material-symbols-outlined">publish</span> -->
-
-                                    </div>
-                                    <br>
-                                    <br>
-                                </div>
-                            </div>
-                        </div>
+                        s
 
                     </div>
                 </div>

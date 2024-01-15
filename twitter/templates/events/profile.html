@@ -111,12 +111,7 @@
                         <h2>More</h2>
                     </div>
                     </a>
-                    <a href="{% url 'logout' %}" style="text-decoration: none; color: black;">
-                        <div class="sidebarOption w-sm-100">
-                            
-                            <h2>Logout</h2>
-                        </div>
-                    </a>
+                    
 
                     <button class="sidebar__tweet mw-100" type="button">
                         <a href="">Post</a>
@@ -126,7 +121,7 @@
                     <div class="mt-1 d-none d-sm-block d-md-block d-lg-block  d-flex align-items-center profile" style="font-family: 'Noto Sans JP', sans-serif;" data-bs-toggle="popover" title="login" data-bs-content="Some content inside the popover" data-bs-trigger="focus"  data-bs-container="body" >
                         
                         <div style="width: 250px;max-width: 100%; align-items: center;" class="d-flex align-items-center">
-                            <img src="{{ user.profile.image.url }}" style="width: 25%;" alt="">
+                            <img src="{{ user.profile.image1.url }}" style="width: 25%;" alt="">
                             <span class="lh-1">
                             <span class="fw-bold" style="font-size: 16px;">{{ user.first_name }}<span class="material-symbols-outlined " style="font-size: 15px; color: black;font-weight: 800;">
                                 lock </span>
@@ -154,7 +149,7 @@
                     <!-- <div class="container-fluid border-bottom border-end"> -->
                     <div class="d-flex align-items-center gap-3" style="font-family: 'Noto Sans JP', sans-serif;">
                         <a href="" class="back p-1" style="text-decoration: none; color: black; font-weight: 600;">
-                            <span class="material-symbols-outlined">arrow_back</span>
+                            <span class="material-symbols-outlined"><a href="{% url 'home' %}" style="text-decoration: none;color: black;">arrow_back</a></span>
                         </a>
                         <div>
                             <p class="py-0 navbar-brand mb-0 fs-5 fw-bold d-flex align-items-center">{{ user.first_name }}<span class="material-symbols-outlined " style="font-size: 19px; color: black;font-weight: 800;">
@@ -220,10 +215,10 @@
                     <div class="row border-end">
                         <div class="col-md-8 w-100">
                         <!-- Column -->
-                            <div class="card border-0 w-100"> <img class="card-img-top" src="{{user.profile.image.url}}" alt="Card image cap">
+                            <div class="card border-0 w-100"> <img class="card-img-top" src="{{user.profile.banner.url}}" alt="Card image cap">
                                 <div class="card-body little-profile text-center d-flex align-items-start justify-content-between">
                                     <div class="pro-img ">
-                                        <img src="{{user.profile.image.url}}" alt="user">
+                                        <img src="{{user.profile.image1.url}}" alt="user">
                                     </div>
                                     
                                     <a href="{% url 'edit'  %}" class="btn btn-outline-light border border-secondary-subtle rounded-pill text-dark fw-bold" style="font-family: 'Noto Sans JP', sans-serif; font-size: 15px;">Set up profile
@@ -234,7 +229,7 @@
                                 <div>
                                     <h3 class="fs-4 ms-3" style="font-family: 'Noto Sans JP', sans-serif; font-size: 15px;">{{user.first_name}}<span class="material-symbols-outlined " style="font-size: 19px; color: black;font-weight: 800;">lock </span></h3>
                                     <p class="text-muted ms-3" style="font-family: 'Noto Sans JP', sans-serif; font-size: 15px;">@{{ user }}</p>
-                                    <p class="text-muted ms-3 d-flex align-items-center" style="font-family: 'Noto Sans JP', sans-serif; font-size: 15px;"> <span class="material-symbols-outlined"  style=" font-size: 17px; ">calendar_month</span>Joined August 2023</p>
+                                    <p class="text-muted ms-3 d-flex align-items-center" style="font-family: 'Noto Sans JP', sans-serif; font-size: 15px;"> <span class="material-symbols-outlined"  style=" font-size: 17px; ">calendar_month</span>Joined {{user.profile.date_created}}</p>
                                     <span class="ms-3" style="font-family: 'Noto Sans JP', sans-serif; font-size: 15px; "><a href="" class="follink" style="color: black; font-weight: 600;">{{ user.profile.followers.count }} followers</a></span>
                                     <span class="ms-3" style="font-family: 'Noto Sans JP', sans-serif; font-size: 15px; "><a href="" class="follink" style="color: black; font-weight: 600;">{{ user.profile.following.count }} following</a></span>
                                 </div>
@@ -242,6 +237,8 @@
                         </div>
                     </div>
                 </div> 
+                <a href="{% url 'logout'  %}" class="btn btn-outline-light border border-secondary-subtle rounded-pill text-dark fw-bold" style="font-family: 'Noto Sans JP', sans-serif; font-size: 15px;">Logout
+                </a>
 
                 <nav class=" navb pt-2 mb-0 border-bottom border-end" style="z-index: 1;">
                     <!-- <div class="container-fluid border-bottom border-end"> -->
@@ -300,19 +297,20 @@
 
                 <!-- WHO TO FOLLOW STARTS -->
                 <div class="container border-end border-bottom">
-                    <div class="row">
-                        {% for post in posts %}
+                    {% for post in posts %}
+                    <div class="row" style="border-bottom: 2px;">
+                        
                         <div class="col-sm-12 col-12 mt-3">
                             
                             <div class="post">
                                 <div class="post_avatar">
-                                    <img src="{{ post.user.profile.image.url }}"  alt="">
+                                    <img src="{{ post.user.profile.image1.url }}"  alt="">
                                 </div>
 
                                 <div class="post_body">
                                     <div class="post_header">
                                         <div class="post_headertext">
-                                            <h3>{{ post.user.first_name }}
+                                            <h3><a href="{% url 'profile' request.user %}" style="text-decoration: none;">{{ post.user.first_name }}</a>
                                                 <span class="post_headerspecial">
                                                     <i class="bi bi-patch-check-fill post__badge"></i>
                                                 </span>
@@ -320,7 +318,7 @@
                                             </h3>
                                         </div>
                                         <div class="post_headerdescription">
-                                            <p class="lh-base">{{ post.content }}  <br> consectetur adipisicing </p>
+                                            <p class="lh-base">{{ post.content }}   </p>
                                         </div>
                                     </div>
                                 </div>
@@ -339,9 +337,10 @@
                             </div>
                             
                         </div>
-                        {% endfor %}
+                       
 
-                    </div>
+                    </div  >
+                    {% endfor %}
                 </div>
                 <!-- WHO TO FOLLOW ENDS -->
 
